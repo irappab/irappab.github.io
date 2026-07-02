@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Irappa Bisanakoppa — Software Architect &amp; Engineering Leader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blueprint: #14273f;
+    --blueprint-deep: #0e1c2e;
+    --paper: #f5f1e6;
+    --steel: #93a7bd;
+    --grid-line: rgba(245,241,230,0.055);
+    --signal: #e2a545;
+    --signal-dim: rgba(226,165,69,0.35);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: var(--blueprint);
+    color: var(--paper);
+    font-family: 'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6vh 6vw;
+    position: relative;
+    overflow: hidden;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center;
+  }
+
+  /* soft vignette so grid fades toward the edges */
+  body::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 0%, transparent 35%, var(--blueprint) 88%);
+    pointer-events: none;
+  }
+
+  .card{
+    position: relative;
+    max-width: 640px;
+    width: 100%;
+    padding: clamp(36px, 6vw, 72px) clamp(28px, 6vw, 64px);
+    border: 1px solid rgba(245,241,230,0.14);
+    background: linear-gradient(180deg, rgba(20,39,63,0.4), rgba(14,28,46,0.4));
+    backdrop-filter: blur(2px);
+  }
+
+  /* corner registration marks, like blueprint alignment crosses */
+  .card::before, .card::after,
+  .mark-tl, .mark-br{
+    content: "";
+    position: absolute;
+    width: 16px;
+    height: 16px;
+  }
+  .mark{
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+  }
+  .mark svg{ width: 100%; height: 100%; }
+  .mark.tl{ top: -9px; left: -9px; }
+  .mark.tr{ top: -9px; right: -9px; }
+  .mark.bl{ bottom: -9px; left: -9px; }
+  .mark.br{ bottom: -9px; right: -9px; }
+
+  .eyebrow{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--signal);
+    margin: 0 0 18px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before{
+    content: "";
+    width: 7px;
+    height: 7px;
+    border: 1px solid var(--signal);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  h1{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(34px, 6vw, 54px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0 0 22px 0;
+    color: var(--paper);
+  }
+
+  .pitch{
+    font-size: clamp(16px, 2vw, 18px);
+    line-height: 1.6;
+    color: var(--steel);
+    max-width: 46ch;
+    margin: 0 0 30px 0;
+  }
+  .pitch strong{
+    color: var(--paper);
+    font-weight: 500;
+  }
+
+  .meta{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.05em;
+    color: var(--steel);
+    margin: 0 0 40px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .meta::before{
+    content: "";
+    width: 4px;
+    height: 4px;
+    background: var(--steel);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* trace: connector line from pitch block down to the CTA */
+  .trace{
+    width: 100%;
+    height: 34px;
+    margin-bottom: 6px;
+    overflow: visible;
+  }
+  .trace path{
+    fill: none;
+    stroke: var(--signal-dim);
+    stroke-width: 1.5;
+    stroke-dasharray: 220;
+    stroke-dashoffset: 220;
+    animation: draw 1.1s 0.35s cubic-bezier(.65,0,.35,1) forwards;
+  }
+  .trace circle{
+    fill: var(--blueprint);
+    stroke: var(--signal);
+    stroke-width: 1.5;
+    opacity: 0;
+    animation: fadeIn 0.4s 1.3s forwards;
+  }
+  @keyframes draw{ to{ stroke-dashoffset: 0; } }
+  @keyframes fadeIn{ to{ opacity: 1; } }
+
+  .cta{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    color: var(--paper);
+    text-decoration: none;
+    padding: 14px 22px;
+    border: 1px solid var(--signal);
+    background: transparent;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .cta:hover, .cta:focus-visible{
+    background: var(--signal);
+    color: var(--blueprint-deep);
+  }
+  .cta:focus-visible{
+    outline: 2px solid var(--paper);
+    outline-offset: 3px;
+  }
+  .cta .arrow{
+    transition: transform 0.2s ease;
+  }
+  .cta:hover .arrow{ transform: translateX(3px); }
+
+  @media (prefers-reduced-motion: reduce){
+    .trace path, .trace circle{ animation: none; stroke-dashoffset: 0; opacity: 1; }
+  }
+
+  @media (max-width: 480px){
+    .card{ padding: 32px 22px; }
+  }
+</style>
+</head>
+<body>
+
+  <main class="card">
+    <span class="mark tl"><svg viewBox="0 0 18 18"><path d="M9 0V18M0 9H18" stroke="rgba(245,241,230,0.3)" stroke-width="1"/></svg></span>
+    <span class="mark tr"><svg viewBox="0 0 18 18"><path d="M9 0V18M0 9H18" stroke="rgba(245,241,230,0.3)" stroke-width="1"/></svg></span>
+    <span class="mark bl"><svg viewBox="0 0 18 18"><path d="M9 0V18M0 9H18" stroke="rgba(245,241,230,0.3)" stroke-width="1"/></svg></span>
+    <span class="mark br"><svg viewBox="0 0 18 18"><path d="M9 0V18M0 9H18" stroke="rgba(245,241,230,0.3)" stroke-width="1"/></svg></span>
+
+    <p class="eyebrow">Software Architect &amp; Engineering Leader</p>
+
+    <h1>Irappa<br>Bisanakoppa</h1>
+
+    <p class="pitch">
+      <strong>14+ years</strong> building enterprise systems at scale —
+      now building the AI agents that help engineering teams ship faster.
+    </p>
+
+    <p class="meta">Overland Park, Kansas</p>
+
+    <svg class="trace" viewBox="0 0 260 34" preserveAspectRatio="none">
+      <path d="M2,2 L2,20 L40,20" />
+      <circle cx="2" cy="2" r="3" />
+      <circle cx="40" cy="20" r="3" />
+    </svg>
+
+    <a class="cta" href="https://linkedin.com/in/irappab" target="_blank" rel="noopener">
+      Connect on LinkedIn <span class="arrow">→</span>
+    </a>
+  </main>
+
+</body>
+</html>
