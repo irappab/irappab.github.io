@@ -20,10 +20,16 @@
 
   *{ box-sizing: border-box; }
 
+  html{
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior: auto; }
+  }
+
   html, body{
     margin: 0;
     padding: 0;
-    height: 100%;
     background: var(--blueprint);
     color: var(--paper);
     font-family: 'IBM Plex Sans', sans-serif;
@@ -31,13 +37,6 @@
   }
 
   body{
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6vh 6vw;
-    position: relative;
-    overflow: hidden;
     background-image:
       linear-gradient(var(--grid-line) 1px, transparent 1px),
       linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
@@ -45,8 +44,17 @@
     background-position: center;
   }
 
-  /* soft vignette so grid fades toward the edges */
-  body::before{
+  .hero{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9vh 6vw 4vh 6vw;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* soft vignette so grid fades toward the edges of the hero */
+  .hero::before{
     content: "";
     position: absolute;
     inset: 0;
@@ -54,11 +62,41 @@
     pointer-events: none;
   }
 
+  .scroll-cue{
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--steel);
+    text-decoration: none;
+    opacity: 0.85;
+    transition: color 0.2s ease, opacity 0.2s ease;
+  }
+  .scroll-cue:hover, .scroll-cue:focus-visible{
+    color: var(--signal);
+    opacity: 1;
+  }
+  .scroll-cue .chevron{
+    width: 8px;
+    height: 8px;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: rotate(45deg);
+  }
+
   .card{
     position: relative;
     max-width: 640px;
     width: 100%;
-    padding: clamp(36px, 6vw, 72px) clamp(28px, 6vw, 64px);
+    padding: clamp(28px, 5vw, 52px) clamp(24px, 5vw, 56px);
     border: 1px solid rgba(245,241,230,0.14);
     background: linear-gradient(180deg, rgba(20,39,63,0.4), rgba(14,28,46,0.4));
     backdrop-filter: blur(2px);
@@ -90,7 +128,7 @@
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--signal);
-    margin: 0 0 18px 0;
+    margin: 0 0 14px 0;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -107,10 +145,10 @@
   h1{
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
-    font-size: clamp(34px, 6vw, 54px);
+    font-size: clamp(30px, 5vw, 46px);
     line-height: 1.05;
     letter-spacing: -0.01em;
-    margin: 0 0 22px 0;
+    margin: 0 0 14px 0;
     color: var(--paper);
   }
 
@@ -119,7 +157,7 @@
     line-height: 1.6;
     color: var(--steel);
     max-width: 46ch;
-    margin: 0 0 30px 0;
+    margin: 0 0 20px 0;
   }
   .pitch strong{
     color: var(--paper);
@@ -131,7 +169,7 @@
     font-size: 12.5px;
     letter-spacing: 0.05em;
     color: var(--steel);
-    margin: 0 0 40px 0;
+    margin: 0 0 26px 0;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -204,37 +242,280 @@
   @media (max-width: 480px){
     .card{ padding: 32px 22px; }
   }
+
+  /* ---- journey / timeline section ---- */
+
+  .journey{
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 2vh 6vw 14vh 6vw;
+    position: relative;
+  }
+
+  .journey-title{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(24px, 4vw, 32px);
+    line-height: 1.15;
+    margin: 0 0 18px 0;
+    color: var(--paper);
+  }
+
+  .journey-intro{
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--steel);
+    max-width: 54ch;
+    margin: 0 0 56px 0;
+  }
+
+  .timeline{
+    position: relative;
+  }
+
+  .era{
+    position: relative;
+    padding-left: 32px;
+    padding-bottom: 46px;
+    border-left: 1px solid rgba(245,241,230,0.14);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .era.visible{
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .era:last-child{
+    border-left: 1px solid transparent;
+    padding-bottom: 0;
+  }
+  .era::before{
+    content: "";
+    position: absolute;
+    left: -5px;
+    top: 3px;
+    width: 9px;
+    height: 9px;
+    background: var(--blueprint-deep);
+    border: 1.5px solid var(--signal);
+    transform: rotate(45deg);
+  }
+
+  .era-date{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--signal);
+    margin: 0 0 8px 0;
+  }
+
+  .era-title{
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 1.3;
+    margin: 0 0 12px 0;
+    color: var(--paper);
+  }
+  .era-title span{
+    font-weight: 400;
+    color: var(--steel);
+    font-size: 15px;
+  }
+
+  .era-story{
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(245,241,230,0.78);
+    max-width: 56ch;
+    margin: 0 0 18px 0;
+  }
+
+  .era-tags{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .era-tags span{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.03em;
+    color: var(--steel);
+    border: 1px solid rgba(147,167,189,0.35);
+    padding: 4px 10px;
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .era{ opacity: 1; transform: none; transition: none; }
+  }
+
+  @media (max-width: 480px){
+    .journey{ padding: 4vh 6vw 10vh 6vw; }
+    .era{ padding-left: 24px; padding-bottom: 38px; }
+  }
 </style>
 </head>
 <body>
 
-  <main class="card">
-    <span class="mark tl"><svg viewBox="0 0 18 18"><path d="M9 0V18M0 9H18" stroke="rgba(245,241,230,0.3)" stroke-width="1"/></svg></span>
-    <span class="mark tr"><svg viewBox="0 0 18 18"><path d="M9 0V18M0 9H18" stroke="rgba(245,241,230,0.3)" stroke-width="1"/></svg></span>
-    <span class="mark bl"><svg viewBox="0 0 18 18"><path d="M9 0V18M0 9H18" stroke="rgba(245,241,230,0.3)" stroke-width="1"/></svg></span>
-    <span class="mark br"><svg viewBox="0 0 18 18"><path d="M9 0V18M0 9H18" stroke="rgba(245,241,230,0.3)" stroke-width="1"/></svg></span>
+  <section class="hero">
+    <main class="card">
+      <span class="mark tl"><svg viewBox="0 0 18 18"><path d="M9 0V18M0 9H18" stroke="rgba(245,241,230,0.3)" stroke-width="1"/></svg></span>
+      <span class="mark tr"><svg viewBox="0 0 18 18"><path d="M9 0V18M0 9H18" stroke="rgba(245,241,230,0.3)" stroke-width="1"/></svg></span>
+      <span class="mark bl"><svg viewBox="0 0 18 18"><path d="M9 0V18M0 9H18" stroke="rgba(245,241,230,0.3)" stroke-width="1"/></svg></span>
+      <span class="mark br"><svg viewBox="0 0 18 18"><path d="M9 0V18M0 9H18" stroke="rgba(245,241,230,0.3)" stroke-width="1"/></svg></span>
 
-    <p class="eyebrow">Software Architect &amp; Engineering Leader</p>
+      <p class="eyebrow">Software Architect &amp; Engineering Leader</p>
 
-    <h1>Irappa<br>Bisanakoppa</h1>
+      <h1>Irappa<br>Bisanakoppa</h1>
 
-    <p class="pitch">
-      <strong>14+ years</strong> building enterprise systems at scale —
-      now building the AI agents that help engineering teams ship faster.
+      <p class="pitch">
+        <strong>14+ years</strong> building enterprise systems at scale —
+        now building the AI agents that help engineering teams ship faster.
+      </p>
+
+      <p class="meta">Overland Park, Kansas</p>
+
+      <svg class="trace" viewBox="0 0 260 34" preserveAspectRatio="none">
+        <path d="M2,2 L2,20 L40,20" />
+        <circle cx="2" cy="2" r="3" />
+        <circle cx="40" cy="20" r="3" />
+      </svg>
+
+      <a class="cta" href="https://linkedin.com/in/irappab" target="_blank" rel="noopener">
+        Connect on LinkedIn <span class="arrow">→</span>
+      </a>
+    </main>
+  </section>
+
+  <section id="journey" class="journey">
+    <p class="journey-intro">
+      Fourteen years across a lot of technology — still learning, still
+      growing, still building, still shipping to prod. Here's how it
+      happened, one stage at a time.
     </p>
 
-    <p class="meta">Overland Park, Kansas</p>
+    <div class="timeline">
 
-    <svg class="trace" viewBox="0 0 260 34" preserveAspectRatio="none">
-      <path d="M2,2 L2,20 L40,20" />
-      <circle cx="2" cy="2" r="3" />
-      <circle cx="40" cy="20" r="3" />
-    </svg>
+      <div class="era">
+        <p class="era-date">2012 — 2013</p>
+        <h3 class="era-title">Developer <span>· Kurios Theles Business Solutions</span></h3>
+        <p class="era-story">
+          ASP.NET MVC had just added Web API — it was the obvious entry
+          point in the Microsoft-stack world I was in, so that's where I
+          started, building an email marketing platform for a Singapore
+          retail co-op and picking up HTML and CSS along the way. jQuery is
+          where it really clicked: seeing how much less code could do so
+          much more than plain JavaScript.
+        </p>
+        <div class="era-tags">
+          <span>C#</span><span>ASP.NET</span><span>WCF Services</span><span>jQuery</span><span>SQL Server</span>
+        </div>
+      </div>
 
-    <a class="cta" href="https://www.linkedin.com/in/irappa-bisanakoppa/" target="_blank" rel="noopener">
-      Connect on LinkedIn <span class="arrow">→</span>
-    </a>
-  </main>
+      <div class="era">
+        <p class="era-date">2013 — 2015</p>
+        <h3 class="era-title">Software Engineer <span>· IonIdea</span></h3>
+        <p class="era-story">
+          Moved into enterprise integration — a claims and reimbursement
+          workflow system, then an ERP-linked order management platform,
+          for two different Singapore clients. Less flashy than building
+          an app from scratch, but it's where I learned that most real
+          engineering is connecting things that were never designed to
+          talk to each other.
+        </p>
+        <div class="era-tags">
+          <span>C#</span><span>ASP.NET MVC</span><span>Entity Framework</span><span>WCF Services</span><span>SQL Server</span>
+        </div>
+      </div>
+
+      <div class="era">
+        <p class="era-date">2015 — 2017</p>
+        <h3 class="era-title">Senior Software Engineer <span>· Happiest Minds</span></h3>
+        <p class="era-story">
+          Two very different problems back to back. First, rebuilding
+          Pearson Education's video player — stripping out heavyweight
+          libraries for a faster, screen-reader-accessible player built
+          from fundamentals. Then a jump into e-commerce at real scale:
+          Turkey's largest online retailer, 58M monthly visitors, where I
+          got hands-on with microservices, message queues, and NoSQL for
+          the first time — years before "microservices" showed up as a
+          skill on my own résumé.
+        </p>
+        <div class="era-tags">
+          <span>JavaScript</span><span>HTML5</span><span>Accessibility</span><span>Microservices</span><span>RabbitMQ</span><span>MongoDB</span>
+        </div>
+      </div>
+
+      <div class="era">
+        <p class="era-date">2017 — 2019</p>
+        <h3 class="era-title">Module Lead <span>· Happiest Minds</span></h3>
+        <p class="era-story">
+          Moved into healthcare — leading Healthgrades' public-facing
+          provider APIs, then HGMD, the platform managing provider data
+          seen by millions of patients. This is where I first managed
+          people, not just code: a team of five, four developers and a QA
+          engineer, end to end — task assignment, design reviews, making
+          sure everyone understood the "why" behind the design.
+        </p>
+        <div class="era-tags">
+          <span>C#</span><span>Web API</span><span>Entity Framework</span><span>AngularJS</span><span>Team Leadership</span>
+        </div>
+      </div>
+
+      <div class="era">
+        <p class="era-date">2019 — 2023</p>
+        <h3 class="era-title">Technical Lead <span>· Happiest Minds</span></h3>
+        <p class="era-story">
+          Stopped asking "how do I build this" and started asking "how
+          should this be built." Led architecture for Ascend Learning's
+          ATI Assessment platform — used by nursing students preparing for
+          licensing exams like the NCLEX — modernizing the stack to .NET
+          Core and Angular while owning real design decisions across
+          distributed teams.
+        </p>
+        <div class="era-tags">
+          <span>Architecture</span><span>.NET Core</span><span>Angular</span><span>Web API</span><span>Distributed Team Leadership</span><span>EdTech</span>
+        </div>
+      </div>
+
+      <div class="era">
+        <p class="era-date">2023 — Present</p>
+        <h3 class="era-title">Architect <span>· Happiest Minds</span></h3>
+        <p class="era-story">
+          Now I design the systems — and increasingly, I design the AI
+          agents that help teams build those systems faster and catch
+          problems before they ship. Docker, solution architecture, and
+          figuring out where AI actually earns its place in the SDLC.
+        </p>
+        <div class="era-tags">
+          <span>Systems Design</span><span>Solution Architecture</span><span>Docker</span><span>AI Agents</span><span>Microservices</span><span>EdTech</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    (function(){
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var eras = document.querySelectorAll('.era');
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        eras.forEach(function(el){ el.classList.add('visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      eras.forEach(function(el){ observer.observe(el); });
+    })();
+  </script>
 
 </body>
 </html>
