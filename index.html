@@ -361,7 +361,7 @@
   .recognition{
     max-width: 640px;
     margin: 0 auto;
-    padding: 3vh 6vw 14vh 6vw;
+    padding: 3vh 6vw 4vh 6vw;
     border-top: 1px solid rgba(245,241,230,0.14);
   }
 
@@ -379,7 +379,53 @@
   }
 
   @media (max-width: 480px){
-    .recognition{ padding: 3vh 6vw 10vh 6vw; }
+    .recognition{ padding: 3vh 6vw 3vh 6vw; }
+  }
+
+  /* ---- testimonials section ---- */
+
+  .testimonials{
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3vh 6vw 14vh 6vw;
+    border-top: 1px solid rgba(245,241,230,0.14);
+  }
+
+  .testimonial-list{
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .testimonial{
+    padding: 18px 22px;
+    border-left: 2px solid var(--signal);
+    background: linear-gradient(180deg, rgba(20,39,63,0.25), rgba(14,28,46,0.25));
+  }
+
+  .testimonial-quote{
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(245,241,230,0.85);
+    margin: 0 0 12px 0;
+  }
+
+  .testimonial-attr{
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.05em;
+    color: var(--steel);
+    margin: 0;
+  }
+  .testimonial-attr::before{
+    content: "— ";
+  }
+
+  @media (max-width: 480px){
+    .testimonials{ padding: 3vh 6vw 10vh 6vw; }
+    .testimonial{ padding: 16px 18px; }
   }
 </style>
 </head>
@@ -409,7 +455,7 @@
         <circle cx="40" cy="20" r="3" />
       </svg>
 
-      <a class="cta" href="https://linkedin.com/in/irappab" target="_blank" rel="noopener">
+      <a class="cta" href="https://www.linkedin.com/in/irappa-bisanakoppa/" target="_blank" rel="noopener">
         Connect on LinkedIn <span class="arrow">→</span>
       </a>
     </main>
@@ -541,6 +587,58 @@
       annual performer</strong> honors, and a <strong>2026 Architecture
       Excellence Award</strong>.
     </p>
+  </section>
+
+  <section id="testimonials" class="testimonials">
+    <p class="eyebrow">What colleagues say</p>
+    <div class="testimonial-list">
+
+      <div class="testimonial">
+        <p class="testimonial-quote">
+          "Went above and beyond to get a major release moving in the
+          right direction — coordinating with offshore teams across time
+          zones and maintaining a positive attitude throughout."
+        </p>
+        <p class="testimonial-attr">Software Engineering Manager</p>
+      </div>
+
+      <div class="testimonial">
+        <p class="testimonial-quote">
+          "Advises the team on technical strategy, but also sets an
+          example with business acumen — knowing when to pivot from plan
+          to support real business needs."
+        </p>
+        <p class="testimonial-attr">Senior Product Manager</p>
+      </div>
+
+      <div class="testimonial">
+        <p class="testimonial-quote">
+          "A true combination of talent and dedication — helping the team
+          understand the technical side, troubleshooting issues, and
+          driving his own development work forward."
+        </p>
+        <p class="testimonial-attr">Senior Software Engineering Manager</p>
+      </div>
+
+      <div class="testimonial">
+        <p class="testimonial-quote">
+          "A wonderful liaison across Architecture, QE, and Development —
+          with a strong ability to drive the team to a solution and an eye
+          for detail that gave the project a solid foundation."
+        </p>
+        <p class="testimonial-attr">Principal Software Engineer</p>
+      </div>
+
+      <div class="testimonial">
+        <p class="testimonial-quote">
+          "Truly grateful for the dedication and hard work — a positive
+          attitude and professionalism that left a lasting impact across
+          different roles and occasions over the years."
+        </p>
+        <p class="testimonial-attr">Director, Software Engineering</p>
+      </div>
+
+    </div>
   </section>
 
   <script>
