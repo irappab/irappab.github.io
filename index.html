@@ -248,7 +248,7 @@
   .journey{
     max-width: 640px;
     margin: 0 auto;
-    padding: 2vh 6vw 14vh 6vw;
+    padding: 2vh 6vw 4vh 6vw;
     position: relative;
   }
 
@@ -352,8 +352,34 @@
   }
 
   @media (max-width: 480px){
-    .journey{ padding: 4vh 6vw 10vh 6vw; }
+    .journey{ padding: 4vh 6vw 6vh 6vw; }
     .era{ padding-left: 24px; padding-bottom: 38px; }
+  }
+
+  /* ---- recognition section ---- */
+
+  .recognition{
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 3vh 6vw 14vh 6vw;
+    border-top: 1px solid rgba(245,241,230,0.14);
+  }
+
+  .recognition-text{
+    font-size: 16px;
+    line-height: 1.75;
+    color: rgba(245,241,230,0.85);
+    max-width: 58ch;
+    margin: 18px 0 0 0;
+  }
+
+  .recognition-text strong{
+    color: var(--signal);
+    font-weight: 600;
+  }
+
+  @media (max-width: 480px){
+    .recognition{ padding: 3vh 6vw 10vh 6vw; }
   }
 </style>
 </head>
@@ -468,15 +494,18 @@
         <p class="era-date">2019 — 2023</p>
         <h3 class="era-title">Technical Lead <span>· Happiest Minds</span></h3>
         <p class="era-story">
-          Stopped asking "how do I build this" and started asking "how
-          should this be built." Led architecture for Ascend Learning's
-          ATI Assessment platform — used by nursing students preparing for
-          licensing exams like the NCLEX — modernizing the stack to .NET
-          Core and Angular while owning real design decisions across
-          distributed teams.
+          Became the architecture authority for Ascend Learning's assessment
+          platform — leading up to 15 developers and 5-6 QA engineers,
+          onshore and offshore, across product, QE, and senior leadership
+          stakeholders. Standardized branching, CI/CD coverage gates, and
+          review discipline held the platform to zero technical escalations
+          for years running. My biggest swing was the Shareability
+          initiative — turning duplicated logic into reusable services
+          across business units, a manager-confirmed 10-15% cut in delivery
+          effort.
         </p>
         <div class="era-tags">
-          <span>Architecture</span><span>.NET Core</span><span>Angular</span><span>Web API</span><span>Distributed Team Leadership</span><span>EdTech</span>
+          <span>Architecture</span><span>.NET Core</span><span>CI/CD</span><span>Distributed Team Leadership</span><span>EdTech</span>
         </div>
       </div>
 
@@ -484,17 +513,34 @@
         <p class="era-date">2023 — Present</p>
         <h3 class="era-title">Architect <span>· Happiest Minds</span></h3>
         <p class="era-story">
-          Now I design the systems — and increasingly, I design the AI
-          agents that help teams build those systems faster and catch
-          problems before they ship. Docker, solution architecture, and
-          figuring out where AI actually earns its place in the SDLC.
+          Now I design systems — and built the tool that helps design them
+          faster. My AI-driven SDLC pipeline, covering planning through
+          security review, started as a self-initiated experiment and is
+          now standard practice across Ascend Learning's engineering teams.
+          As sole onshore architect on a greenfield platform, I directed a
+          cross-vendor offshore team with no formal authority and shipped
+          every milestone with zero technical escalations — while
+          clean-architecture standards and AI-assisted tooling cut recurring
+          development effort by an estimated 20%+.
         </p>
         <div class="era-tags">
-          <span>Systems Design</span><span>Solution Architecture</span><span>Docker</span><span>AI Agents</span><span>Microservices</span><span>EdTech</span>
+          <span>Systems Design</span><span>AI-Driven SDLC</span><span>Clean Architecture</span><span>Solution Architecture</span><span>EdTech</span>
         </div>
       </div>
 
     </div>
+  </section>
+
+  <section id="recognition" class="recognition">
+    <p class="eyebrow">Recognition</p>
+    <p class="recognition-text">
+      Recognized <strong>18 times</strong> over a decade for delivery,
+      collaboration, and technical excellence — including a
+      <strong>three-year Hack Midwest streak</strong> (Okta Challenge '23,
+      Best Use of AI '24, Best Use of Data '25), <strong>four-time top
+      annual performer</strong> honors, and a <strong>2026 Architecture
+      Excellence Award</strong>.
+    </p>
   </section>
 
   <script>
